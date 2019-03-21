@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './SmsForm.css';
+import axios from 'axios';
 
 class SmsForm extends Component {
   constructor(props) {
@@ -12,6 +13,12 @@ class SmsForm extends Component {
 
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
+  };
+
+  onSubmit = e => {
+    const body = {number: this.state.phoneNumber, text: this.state.textContent};
+    axios.post('http://localhost:8080', body);
+    this.setState({phoneNumber: "", textContent: ""});
   };
 
   render() {
@@ -34,7 +41,7 @@ class SmsForm extends Component {
           value={this.state.textContent}
           onChange={this.onChange}
         />
-        <div className="smsform-submit">
+        <div className="smsform-submit" onClick={this.onSubmit}>
           <h4>Send Text</h4>
         </div>
       </div>

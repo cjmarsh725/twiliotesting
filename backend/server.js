@@ -8,11 +8,12 @@ server.use(express.json());
 server.use(cors({}));
 
 server.post('/', (req, res) => {
+  const {number, text} = req.body;
   client.messages
     .create({
-       body: 'This is the ship that made the Kessel Run in fourteen parsecs?',
+       body: text,
        from: '+14086179092',
-       to: '+14087187190'
+       to: '+1' + number
      })
     .then(message => console.log(message.sid));
   res.json({response: "message sent"});
